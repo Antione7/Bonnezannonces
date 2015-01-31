@@ -1,0 +1,70 @@
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    
+    <div class="form-group {% if form.nom.vars.errors %}has-error{% endif %} row">
+    <label class="col-lg-2">Nom:</label>
+    <div class="col-lg-3">
+    {{ form_widget(form.nom, {'attr': {'class': 'form-control input-sm', 'placeholder': "Entrez votre nom", 'required': 'required'}}) }}
+    </div>
+    </div>
+    
+    <div class="form-group {% if form.prenom.vars.errors %}has-error{% endif %} row">
+    <label class="col-lg-2">Prénom:</label>
+    <div class="col-lg-3">
+    {{ form_widget(form.prenom, {'attr': {'class': 'form-control input-sm', 'placeholder': "Entrez votre prénom", 'required': 'required'}}) }}
+    </div>
+    </div>
+    
+    <div class="form-group {% if form.username.vars.errors %}has-error{% endif %} row">
+    <label class="col-lg-2">Nom d'utilisateur:</label>
+    <div class="col-lg-3">
+    {{ form_widget(form.username, {'attr': {'class': 'form-control input-sm', 'placeholder': "Entrez votre nom d'utilisateur", 'required': 'required'}}) }}
+    </div>
+    </div>
+    
+    <div class="form-group {% if form.avatarFile.vars.errors %}has-error{% endif %} row">
+    <label class="col-lg-2">Avatar:</label>
+    <div class="col-lg-3">
+    {{ form_widget(form.avatarFile) }}
+    </div>
+    </div>
+    
+    <div class="form-group {% if form.email.vars.errors %}has-error{% endif %} row">
+    <label class="col-lg-2">Email:</label>
+    <div class="col-lg-3">
+    {{ form_widget(form.email, {'attr': {'class': 'form-control input-sm', 'placeholder': 'Entrez votre adresse email', 'required': 'required'}}) }}
+    </div>
+    </div>
+    
+    <div class="form-group {% if form.plainPassword.first.vars.errors %}has-error{% endif %} row">
+    <label class="col-lg-2">Mot de passe:</label>
+    <div class="col-lg-3">
+    {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control input-sm', 'placeholder': 'Entrez votre mot de passe', 'required': 'required'}}) }}
+    {% for errorItem in form.plainPassword.first.vars.errors %}
+      <label class="control-label has-error" for="{{ form.plainPassword.vars.id }}">{{ errorItem.message }}</label>
+    {% endfor %}
+    </div>
+    <div class="col-lg-3">
+    {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control input-sm', 'placeholder': 'Entrez votre mot de passe à nouveau', 'required': 'required'}}) }}
+    </div>
+    </div>
+    {{ form_rest(form) }} 
+    <div class="row">
+        <div class="col-lg-8">
+        <input type="submit" class="btn btn-sm btn-success pull-right" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

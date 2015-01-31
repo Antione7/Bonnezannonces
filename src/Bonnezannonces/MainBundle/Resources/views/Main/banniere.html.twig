@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="banniere">
+        <div class="col-lg-4">
+            <!--<img src="img/bc.png"/>-->
+            <h1><strong>Bonnezannonces</strong></h1>
+        </div>
+    
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="col-lg-offset-4 col-lg-4">
+        <h4 class="pull-right">Bienvenue {{ app.user.username }} ! </h4>
+<!--        <img style="height:100px width:auto" src="{{ asset(app.user.getWebPath()) }}">-->
+        </div>
+        {% endif %}
+    
+    </div>
+</div>

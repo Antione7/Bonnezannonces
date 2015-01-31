@@ -1,0 +1,33 @@
+{% extends "MainBundle::main_n2.html.twig" %}
+
+{% block n3 %}
+    <h1>{{ entity.titre }}</h1>
+    <div class="row">
+        <div class="col-lg-5" style="height:300px">
+            <img style="max-height:100%; width:auto" src="{{ asset(entity.getWebPath()) }}">
+        </div>
+        <div class="col-lg-5" style="height:300px">
+            <div class="row" style="max-height:80%; width:auto">
+                <p><strong>Description:</strong></p><br/>
+                <p>{{ entity.description }}</p> 
+            </div>
+            <div class="row" style="max-height:20%; width:auto">
+                <p>Créé le {{ entity.dateCreation|date('Y-m-d H:i:s') }}</p>
+            </div>
+        </div>
+    </div>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('annonce') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('annonce_edit', { 'id': entity.idAnnonce }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock n3 %}

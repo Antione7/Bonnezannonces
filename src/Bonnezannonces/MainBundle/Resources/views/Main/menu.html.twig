@@ -1,0 +1,28 @@
+
+<div class="row">
+    <nav class="navbar navbar-inverse">
+             <ul class="nav navbar-nav">
+                    <li class="{% if app.request.attributes.get('_route')=='main_homepage' %}active{% endif %}"><a href="{{ path("main_homepage")}}">&nbsp;Nouvelles annonces</a></li>
+                    <li class="{% if app.request.attributes.get('_route')=='main_categorie' %}active{% endif %}"><a href="{{ path("main_categorie")}}">&nbsp;Catégories</a></li>
+                    
+            </ul>
+            {%if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                
+            <ul class="nav navbar-nav pull-right">
+                    <li class="{% if app.request.attributes.get('_route')=='main_annonces' %}active{% endif %}"><a href="{{ path("annonce")}}">Mes annonces&nbsp;</a></li>
+                    <!--<li class="{% if app.request.attributes.get('_route')=='main_profile' %}active{% endif %}"><a href="profile">Mon profile&nbsp;</a></li>-->
+                    <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter&nbsp;</a></li>
+            </ul>
+            
+            {% else %}
+                
+            
+            <ul class="nav navbar-nav pull-right">
+                    <li class="{% if app.request.attributes.get('_route')=='user_inscription' %}active{% endif %}"><a href="{{ path("user_inscription")}}">Créer un compte&nbsp;</a></li>
+                    <li class="{% if app.request.attributes.get('_route')=='user_connection' %}active{% endif %}"><a href="{{ path("user_connection")}}">Se connecter&nbsp;</a></li>
+            </ul>
+            
+            {% endif %}
+            
+    </nav>
+</div>

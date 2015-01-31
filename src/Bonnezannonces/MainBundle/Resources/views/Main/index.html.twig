@@ -1,0 +1,29 @@
+{% extends "MainBundle::main_n2.html.twig" %}
+
+{% block n3 %}
+    
+    <div class="container">
+        {% for annonce in annonces %}
+    <h1>{{ annonce.titre }}</h1>
+    <div class="row">
+        <div class="col-lg-5" style="height:300px">
+            <img style="max-height:100%; width:auto" src="{{ asset(annonce.getWebPath()) }}">
+        </div>
+        <div class="col-lg-5" style="height:300px">
+            <div class="row" style="max-height:80%; width:auto">
+                <p><strong>Description:</strong></p><br/>
+                <p>{{ annonce.description }}</p> 
+            </div>
+            <div class="row" style="max-height:10%; width:auto">
+                <p>Créé le {{ annonce.dateCreation|date('Y-m-d H:i:s') }}</p>
+            </div>
+            <div class="row" style="max-height:10%; width:auto">
+                <a href="{{ path("reponse_new",{"id":annonce.idAnnonce})}}"><button class="btn btn-sm btn-success">Répondre</button></a>
+            </div>
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+
+    
+{% endblock n3 %}

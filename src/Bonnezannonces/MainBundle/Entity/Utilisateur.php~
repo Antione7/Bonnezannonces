@@ -1,0 +1,261 @@
+<?php
+
+namespace Bonnezannonces\MainBundle\Entity;
+
+use FOS\UserBundle\Entity\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * Utilisateur
+ *
+ * @ORM\Table(name="utilisateur", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
+ * @ORM\Entity
+ */
+class Utilisateur extends BaseUser
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_utilisateur", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    protected $idUtilisateur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=50, nullable=false)
+     */
+    protected $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
+     */
+    protected $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, nullable=false)
+     */
+    protected $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mdp", type="string", length=50, nullable=false)
+     */
+    protected $mdp;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar_path", type="string", length=255,nullable=true)
+     */
+    private $avatarPath;
+    
+         /**
+     * @Assert\File(
+     *    maxSize= "1024k",
+     *    maxSizeMessage = "Votre fichier doit être inférieur à 1Mo",
+     *    mimeTypes = {"image/jpeg", "image/png", "image/gif"},
+     *    mimeTypesMessage = "Merci d'uploader un jpg, png ou gif"
+     *    )
+     */
+    protected $avatarFile;
+
+
+
+    /**
+     * Get idUtilisateur
+     *
+     * @return integer 
+     */
+    public function getIdUtilisateur()
+    {
+        return $this->idUtilisateur;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Utilisateur
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     * @return Utilisateur
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string 
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Utilisateur
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set mdp
+     *
+     * @param string $mdp
+     * @return Utilisateur
+     */
+    public function setMdp($mdp)
+    {
+        $this->mdp = $mdp;
+
+        return $this;
+    }
+
+    /**
+     * Get mdp
+     *
+     * @return string 
+     */
+    public function getMdp()
+    {
+        return $this->mdp;
+    }
+    
+        /**
+     * Set avatarPath
+     *
+     * @param string $avatarPath
+     * @return User
+     */
+    public function setAvatarPath($avatarPath)
+    {
+        $this->avatarPath = $avatarPath;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarPath
+     *
+     * @return string 
+     */
+    public function getAvatarPath()
+    {
+        return $this->avatarPath;
+    }
+    
+    public function getAvatarFile() {
+        return $this->avatarFile;
+    }
+
+    public function setAvatarFile(UploadedFile $avatarFile) {
+        $this->avatarFile = $avatarFile;
+        return $this;
+    }
+    
+        // Retourner le chemin absolu d'un fichier (surtout utilisé dans un controller)
+    public function getAbsolutePath() {
+        return null === $this->avatarPath ? null : 
+                $this->getUploadRootDir()."/".$this->avatarPath;
+    }
+    
+    // Récupérer le chemin d'un fichié uploadé (surtout utilisé depuis un template Twig
+    public function getWebPath() {
+        return null === $this->avatarPath ? null :
+                $this->getUploadDir().'/'.$this->avatarPath;
+    }
+    
+  protected function getUploadRootDir() {
+   return __DIR__.'/../../../../web/'.$this->getUploadDir();
+  }
+  
+  protected function getUploadDir() {
+        return "uploads/avatars";
+    }
+    
+  /**
+   * @ORM\PrePersist()
+   * @ORM\PreUpdate()
+   */
+    public function preUpload() {
+        if(null !== $this->avatarFile) {
+            // Crypter le nom du fichier uploadé
+  $this->avatarPath = 
+  sha1(uniqid(mt_rand(),true)).'.'.$this->avatarFile->guessExtension();
+        }
+    }
+    
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload() {
+        if(null === $this->avatarFile) {
+            return;
+        }
+        $this->avatarFile->move($this->getUploadRootDir(),
+                $this->avatarPath);
+        
+    }
+    
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload() {
+        if($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+}

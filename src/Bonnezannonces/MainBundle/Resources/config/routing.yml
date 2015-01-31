@@ -1,0 +1,14 @@
+main_homepage:
+    path:     /
+    defaults: { _controller: MainBundle:Main:index }
+  
+main_categorie:
+    path:     /categorie
+    defaults: { _controller: MainBundle:Main:categorie }
+    
+main_annonce_par_categorie:
+    path:     /annonces_par_categorie/{id}
+    defaults: { _controller: MainBundle:Main:parCategorie }
+    requirements:
+        id:  \d+
+        

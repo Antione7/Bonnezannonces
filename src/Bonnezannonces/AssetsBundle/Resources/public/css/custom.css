@@ -1,0 +1,38 @@
+.banniere {
+	background: #01B0F0;
+	height:80px;
+	width:auto;
+	margin-left:0px;
+	box-sizing: border-box;
+}
+
+.banniere h1{
+	margin-left:30px;
+	margin-top:20px;
+}
+
+.banniere h4{
+	margin-top:40px;
+	margin-right:40px;
+}
+
+.banniere img{
+	
+}
+
+.annonce {
+	background: #01B0F0;
+	height:300px;
+	margin-left:0px;
+}
+
+.annonce img{
+	max-height:100%;
+	width:auto;
+	margin-left:30px;
+}
+
+.trait-gauche {
+	border-left:1px solid #000;
+	height:auto;
+}

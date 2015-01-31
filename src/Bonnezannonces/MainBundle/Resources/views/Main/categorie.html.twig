@@ -1,0 +1,23 @@
+{% extends "MainBundle::main_n2.html.twig" %}
+
+{% block n3 %}
+    
+    <div class="container">
+        
+                
+                {% for categorie in categories %}
+                    <div class="col-lg-3 trait-gauche">
+                        <a href="{{ path("main_annonce_par_categorie",{"id":categorie.idCategorie})}}"><button type="button" class="btn btn-sm btn-default"><h4><strong>{{ categorie.libelle | capitalize }}</strong></h4></li></button></a>
+                        {% for subcategorie in subcategories[categorie.idCategorie] %}
+                            
+                            <a href="{{ path("main_annonce_par_categorie",{"id":subcategorie.idCategorie})}}"><h5>{{ subcategorie.libelle }}</h5></a>
+                            
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                    
+            
+    </div>
+
+    
+{% endblock n3 %}

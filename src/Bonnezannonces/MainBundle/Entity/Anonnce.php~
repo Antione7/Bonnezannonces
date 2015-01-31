@@ -1,0 +1,73 @@
+<?php
+
+namespace Bonnezannonces\MainBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Anonnce
+ *
+ * @ORM\Table(name="anonnce", indexes={@ORM\Index(name="FK_anonnce_id_utilisateur", columns={"id_utilisateur"}), @ORM\Index(name="FK_anonnce_id_categorie", columns={"id_categorie"})})
+ * @ORM\Entity
+ */
+class Anonnce
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_annonce", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idAnnonce;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=50, nullable=false)
+     */
+    private $titre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=512, nullable=false)
+     */
+    private $image;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_creation", type="datetime", nullable=false)
+     */
+    private $dateCreation;
+
+    /**
+     * @var \Categorie
+     *
+     * @ORM\ManyToOne(targetEntity="Categorie")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_categorie", referencedColumnName="id_categorie")
+     * })
+     */
+    private $idCategorie;
+
+    /**
+     * @var \Utilisateur
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id_utilisateur")
+     * })
+     */
+    private $idUtilisateur;
+
+
+}

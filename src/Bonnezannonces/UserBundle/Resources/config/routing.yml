@@ -1,0 +1,7 @@
+user_inscription:
+    path:     /inscription
+    defaults: { _controller: FOSUserBundle:Registration:register }
+
+user_connection:
+    path:     /connection
+    defaults: { _controller: FOSUserBundle:Security:login }

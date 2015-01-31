@@ -1,0 +1,24 @@
+<!-- NIVEAU1 -->
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Bonnezannonces</title>
+        
+    <link href="{{asset('bundles/assets/css/custom.css')}}" type="text/css" rel="stylesheet"/>
+    <link href="{{asset('bundles/assets/css/bootstrap.css')}}" type="text/css" rel="stylesheet"/>
+    <!--<link rel="icon" href="{{ asset('bc16x16.ico') }}" />-->
+
+  </head>
+
+  <body>
+  {% include "MainBundle:Main:banniere.html.twig" %}
+  {% include "MainBundle:Main:menu.html.twig" %}
+    {# Zone insertion Niveau 2#}
+    {% block body %}{% endblock body %}
+    {# Fin Zone insertion Niveau 2#}   
+ 
+  </body>
+</html><!-- Fin du NIVEAU 1 -->
+        
+
